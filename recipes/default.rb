@@ -1,4 +1,4 @@
 # Install some stuff.
 template '/etc/haproxy/haproxy.cfg' do
-  source "php.ini.erb"
+  source "haproxy.cfg.erb"
 end
