@@ -14,7 +14,7 @@
 # See also: http://docs.aws.amazon.com/opsworks/latest/userguide/customizing.html
 ###
 
-include_attribute 'opsworks_commons::default'
+#include_attribute 'opsworks_commons::default'
 
 rhel_arch = RUBY_PLATFORM.match(/64/) ? 'x86_64' : 'i686'
 default[:haproxy][:version] = '1.4.22'
@@ -54,6 +54,7 @@ default[:haproxy][:maxcon_factor_static_ssl] = 15
 
 default[:haproxy][:balance] = 'roundrobin'
 
-include_attribute "haproxy::customize"
-override[:haproxy][:stats_user] = 'opsworks'
-override[:haproxy][:stats_password] = 'mieke_test'
+#include_attribute "haproxy::customize"
+default[:haproxy][:enable_stats] = true
+default[:haproxy][:stats_user] = 'opsworks'
+default[:haproxy][:stats_password] = 'mieke_test'
