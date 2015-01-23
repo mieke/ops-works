@@ -13,4 +13,4 @@ attribute 'haproxy/backend',
   :description => 'List of backend services to load balance',
   :required => true,
   :type => 'array'
-depends 'opsworks_commons'
+
