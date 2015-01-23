@@ -40,20 +40,43 @@ defaults
   <% end -%>
 
 frontend http
-  acl app1 path_end -i /app1
-  acl app2 path_end -i /app2 
-
-use_backend srvs_app1 if app1 
-use_backend srvs_app2 if app2 
+  bind *:80
+  reqadd X-Forwarded-Proto:\ http
+  acl app1 path_beg -i /app1
+  acl app2 path_beg -i /app2 
+  use_backend srvs_app1 if app1 
+  use_backend srvs_app2 if app2 
+  default_backend srvs_app1
+  
+frontend https
+  bind *:443
+  reqadd X-Forwarded-Proto:\ https
+  acl app1 path_beg -i /app1
+  acl app2 path_beg -i /app2 
+  use_backend srvs_app1_https if app1 
+  use_backend srvs_app2_https if app2 
+  default_backend srvs_app1_https
 
 backend srvs_app1 #backend that lists your servers. Use a balancing algorithm as per your need. 
    balance roundrobin 
    server host1 php-app1:80
    server host2 php-app2:80
    server host3 php-app3:80
-   
+
+backend srvs_app1_https #backend that lists your servers. Use a balancing algorithm as per your need. 
+   balance roundrobin 
+   server host1 php-app1:443
+   server host2 php-app2:443
+   server host3 php-app3:443
+
 backend srvs_app2 #backend that lists your servers. Use a balancing algorithm as per your need. 
    balance roundrobin 
    server host1 php-app4:80
    server host2 php-app5:80
    server host3 php-app6:80
+
+backend srvs_app2_https #backend that lists your servers. Use a balancing algorithm as per your need. 
+   balance roundrobin 
+   server host1 php-app4:443
+   server host2 php-app5:443
+   server host3 php-app6:443
