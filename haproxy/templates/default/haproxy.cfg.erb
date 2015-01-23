@@ -39,7 +39,8 @@ defaults
   stats uri <%= node[:haproxy][:stats_url] %>
   <% end -%>
 
-frontend http
+frontend http-in
+  bind *:80
   acl app1 path_end -i /app1
   acl app2 path_end -i /app2 
 
