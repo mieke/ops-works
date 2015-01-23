@@ -1,4 +1,4 @@
-name             "haproxycustom"
+name             "haproxy"
 description      'Installs and configures haproxy'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 maintainer       "AWS OpsWorks"
